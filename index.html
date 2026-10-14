@@ -186,10 +186,14 @@ if (!configured) {
       }
     });
 
-    onAuthStateChanged(auth, user => {
-      if (!user) {
+    onAuthStateChanged(auth, async user => {
+      // No aceptar una sesión anónima antigua: la lista requiere correo y contraseña.
+      if (!user || user.isAnonymous) {
         loginGate.style.display = 'flex';
         appContent.hidden = true;
+        if (user && user.isAnonymous) {
+          try { await signOut(auth); } catch (error) { console.error(error); }
+        }
         return;
       }
       loginGate.style.display = 'none';
