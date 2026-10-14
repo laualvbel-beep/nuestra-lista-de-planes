@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra lista de planes ♡</title>
+<style>
+  :root{--cream:#fffaf5;--paper:#fffdfb;--pink:#e9a6ad;--rose:#b85f70;--ink:#493b3d;--muted:#8b7779;--line:#f0dfe0;--green:#78927b}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(circle at top left,#f8e6e4 0,transparent 35%),var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif;min-height:100vh}
+  .wrap{width:min(940px,92%);margin:0 auto;padding:42px 0 60px}
+  header{text-align:center;padding:28px 16px 30px}
+  .eyebrow{font:600 11px/1.4 Arial,sans-serif;letter-spacing:.23em;text-transform:uppercase;color:var(--rose)}
+  h1{font-size:clamp(35px,7vw,58px);font-weight:normal;line-height:1.05;margin:15px 0 12px;letter-spacing:-.04em}
+  h1 span{color:var(--rose)}
+  .subtitle{font-size:17px;color:var(--muted);font-style:italic;margin:0}
+  .date{display:inline-block;margin-top:20px;border:1px solid var(--line);border-radius:30px;padding:8px 15px;color:var(--rose);font:11px Arial,sans-serif;letter-spacing:.12em}
+  .layout{display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start}
+  .panel,.plan{background:rgba(255,253,251,.92);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 30px #74434a0b}
+  .panel{padding:22px;position:sticky;top:16px}
+  h2{font-size:22px;font-weight:normal;margin:0 0 18px}
+  label{display:block;font:12px Arial,sans-serif;color:var(--muted);margin:14px 0 7px}
+  input,textarea,select{width:100%;border:1px solid var(--line);border-radius:11px;background:#fffdfc;padding:11px 12px;color:var(--ink);font:14px Arial,sans-serif;outline:none}
+  input:focus,textarea:focus,select:focus{border-color:var(--pink);box-shadow:0 0 0 3px #e9a6ad26}
+  textarea{resize:vertical;min-height:78px}
+  button{border:0;border-radius:11px;padding:12px 15px;background:var(--rose);color:white;font:600 13px Arial,sans-serif;cursor:pointer;transition:transform .15s,opacity .15s}
+  button:hover{opacity:.92;transform:translateY(-1px)}
+  .submit{width:100%;margin-top:17px}
+  .hint{font:11px/1.5 Arial,sans-serif;color:var(--muted);margin:12px 0 0}
+  .list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 2px 14px}
+  .list-head h2{margin:0}
+  .count{font:11px Arial,sans-serif;color:var(--rose);background:#f8e9e8;padding:7px 10px;border-radius:20px;white-space:nowrap}
+  .plans{display:grid;gap:12px}
+  .plan{padding:17px 18px;display:grid;grid-template-columns:25px 1fr auto;gap:12px;align-items:start}
+  .check{appearance:none;width:20px;height:20px;border:1.5px solid #d7a5aa;border-radius:50%;margin:2px 0 0;cursor:pointer;padding:0}
+  .check:checked{background:var(--green);border-color:var(--green);box-shadow:inset 0 0 0 4px #fff}
+  .plan-title{font-size:18px;margin:0 0 7px;overflow-wrap:anywhere}
+  .plan.done .plan-title{text-decoration:line-through;color:#9a8e8f}
+  .plan-desc{font:13px/1.55 Arial,sans-serif;color:var(--muted);margin:0 0 10px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .tag{display:inline-block;background:#f8e9e8;color:var(--rose);border-radius:20px;padding:5px 9px;font:10px Arial,sans-serif}
+  .plan-meta{font:10px Arial,sans-serif;color:#aa999a;margin-top:9px}
+  .delete{background:transparent;color:#b39b9d;padding:3px 5px;font-size:18px;line-height:1}
+  .delete:hover{color:var(--rose);transform:none}
+  .empty{text-align:center;padding:38px 20px;border:1px dashed #e7c9cb;border-radius:18px;color:var(--muted)}
+  .empty .heart{font-size:28px;color:var(--pink)}
+  .empty p{font-size:16px;margin:10px 0 5px}
+  .empty small{font:12px Arial,sans-serif}
+  footer{text-align:center;color:#a48e90;font:11px Arial,sans-serif;letter-spacing:.05em;margin-top:30px}
+  @media(max-width:700px){.wrap{padding-top:20px}.layout{grid-template-columns:1fr}.panel{position:static}.plan{grid-template-columns:24px 1fr auto}header{padding-bottom:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Un pequeño rincón nuestro</div>
+    <h1>Nuestra lista de <span>planes ♡</span></h1>
+    <p class="subtitle">Todo lo que queremos vivir juntos.</p>
+    <div class="date">09/05/2026 · NOSOTROS DOS</div>
+  </header>
+  <main class="layout">
+    <section class="panel" aria-labelledby="formTitle">
+      <h2 id="formTitle">Añadir un plan ✿</h2>
+      <form id="planForm">
+        <label for="title">¿Qué queremos hacer?</label>
+        <input id="title" maxlength="100" placeholder="Ver el atardecer juntos…" required>
+        <label for="category">Categoría</label>
+        <select id="category">
+          <option>Citas bonitas</option><option>Aventuras</option><option>Comida y cafés</option><option>Viajes</option><option>En casa</option><option>Algún día</option>
+        </select>
+        <label for="notes">Detalles (opcional)</label>
+        <textarea id="notes" maxlength="500" placeholder="Lugar, ideas, cosas que llevar…"></textarea>
+        <button class="submit" type="submit">Guardar en nuestra lista ♡</button>
+      </form>
+      <p class="hint" id="connectionStatus">Preparando conexión compartida…</p><div id="setupHelp" hidden style="margin-top:12px;padding:12px;border-radius:12px;background:#fff1f0;font:12px/1.5 Arial,sans-serif"><strong>Falta conectar la base de datos.</strong><br>Abre el archivo LEEME para seguir los pasos de configuración de Firebase. Cuando añadas la configuración de tu proyecto, los planes se sincronizarán entre los dos.</div>
+    </section>
+    <section aria-labelledby="listTitle">
+      <div class="list-head"><h2 id="listTitle">Nuestros próximos recuerdos</h2><span class="count" id="count">0 planes</span></div>
+      <div class="plans" id="plans"></div>
+    </section>
+  </main>
+  <footer>Hecho con cariño, para todos los momentos que aún nos quedan por vivir ♡</footer>
+</div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getDatabase, ref, onValue, push, set, update, remove } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
+
+// PASO 1: pega aquí la configuración de Firebase que te dará la consola.
+const firebaseConfig = {
+  apiKey: 'PEGA_AQUI_TU_API_KEY',
+  authDomain: 'PEGA_AQUI_TU_AUTH_DOMAIN',
+  databaseURL: 'PEGA_AQUI_TU_DATABASE_URL',
+  projectId: 'PEGA_AQUI_TU_PROJECT_ID',
+  storageBucket: 'PEGA_AQUI_TU_STORAGE_BUCKET',
+  messagingSenderId: 'PEGA_AQUI_TU_MESSAGING_SENDER_ID',
+  appId: 'PEGA_AQUI_TU_APP_ID'
+};
+// Esta clave identifica vuestra lista. No la cambies después de empezar a guardar planes.
+const ROOM_ID = 'nuestra-lista-7f3a9c2e-plan-compartido';
+
+const form = document.getElementById('planForm');
+const title = document.getElementById('title');
+const category = document.getElementById('category');
+const notes = document.getElementById('notes');
+const plansEl = document.getElementById('plans');
+const countEl = document.getElementById('count');
+const statusEl = document.getElementById('connectionStatus');
+const setupHelp = document.getElementById('setupHelp');
+let plans = [];
+let db = null;
+let roomRef = null;
+let ready = false;
+
+const safeDate = value => { try { return new Date(value).toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'}); } catch (_) { return ''; } };
+function render() {
+  plansEl.replaceChildren();
+  const remaining = plans.filter(p => !p.done).length;
+  countEl.textContent = `${plans.length} ${plans.length === 1 ? 'plan' : 'planes'} · ${remaining} pendientes`;
+  if (!plans.length) {
+    const empty = document.createElement('div'); empty.className = 'empty';
+    const heart = document.createElement('div'); heart.className = 'heart'; heart.textContent = '♡';
+    const p = document.createElement('p'); p.textContent = 'Aquí empieza nuestra aventura';
+    const small = document.createElement('small'); small.textContent = 'Añadid ese primer plan que no queréis olvidar.';
+    empty.append(heart,p,small); plansEl.append(empty); return;
+  }
+  [...plans].sort((a,b) => Number(a.done)-Number(b.done) || (b.created||0)-(a.created||0)).forEach(plan => {
+    const card = document.createElement('article'); card.className = 'plan' + (plan.done ? ' done' : '');
+    const check = document.createElement('input'); check.type = 'checkbox'; check.className = 'check'; check.checked = !!plan.done; check.setAttribute('aria-label','Marcar plan como realizado');
+    check.addEventListener('change', async () => { try { await update(ref(db, `rooms/${ROOM_ID}/${plan.id}`), {done:check.checked}); } catch(e) { showError(e); } });
+    const content = document.createElement('div');
+    const heading = document.createElement('h3'); heading.className = 'plan-title'; heading.textContent = plan.title || 'Plan sin título'; content.append(heading);
+    if (plan.notes) { const desc = document.createElement('p'); desc.className = 'plan-desc'; desc.textContent = plan.notes; content.append(desc); }
+    const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = plan.category || 'Algún día'; content.append(tag);
+    const meta = document.createElement('div'); meta.className = 'plan-meta'; meta.textContent = plan.done ? 'Un recuerdo más para nosotros ✨' : 'Añadido el ' + safeDate(plan.created || Date.now()); content.append(meta);
+    const del = document.createElement('button'); del.className = 'delete'; del.type = 'button'; del.textContent = '×'; del.title = 'Eliminar plan'; del.setAttribute('aria-label','Eliminar '+plan.title);
+    del.addEventListener('click', async () => { if (confirm('¿Quieres eliminar este plan?')) { try { await remove(ref(db, `rooms/${ROOM_ID}/${plan.id}`)); } catch(e) { showError(e); } } });
+    card.append(check,content,del); plansEl.append(card);
+  });
+}
+function showError(error) {
+  console.error(error);
+  statusEl.textContent = 'No se ha podido conectar. Revisa la configuración y las reglas de Firebase.';
+  statusEl.style.color = '#b33d52';
+}
+const configured = Object.values(firebaseConfig).every(v => typeof v === 'string' && v.length && !v.startsWith('PEGA_AQUI'));
+if (!configured) {
+  statusEl.textContent = 'La lista está diseñada, pero falta conectar Firebase para compartir los planes.';
+  setupHelp.hidden = false;
+  render();
+} else {
+  try {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    db = getDatabase(app);
+    signInAnonymously(auth).then(() => {
+      roomRef = ref(db, `rooms/${ROOM_ID}`);
+      onValue(roomRef, snapshot => {
+        const data = snapshot.val() || {};
+        plans = Object.entries(data).map(([id, value]) => ({id, ...value}));
+        ready = true;
+        statusEl.textContent = 'Conectado · los cambios se comparten automáticamente ♡';
+        statusEl.style.color = '#64866b';
+        render();
+      }, showError);
+    }).catch(showError);
+  } catch (e) { showError(e); }
+}
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!ready || !db) { alert('Primero hay que conectar la base de datos siguiendo el archivo LEEME.'); return; }
+  const value = title.value.trim(); if (!value) return;
+  try {
+    const newRef = push(ref(db, `rooms/${ROOM_ID}`));
+    await set(newRef, {title:value, category:category.value, notes:notes.value.trim(), done:false, created:Date.now()});
+    form.reset(); title.focus();
+  } catch(e) { showError(e); alert('No se ha podido guardar el plan. Comprueba tu conexión.'); }
+});
+render();
+</script>
+</body>
+</html>
